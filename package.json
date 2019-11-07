@@ -5,7 +5,6 @@
   "repository": "github.com/crijke/genesis-js",
   "author": "Christian Rijke",
   "license": "MIT",
-  "private": true,
   "scripts": {
     "_cleanBuild": "rm -rf build",
     "_cleanGeneratedSrc": "rm -rf srcGen",
