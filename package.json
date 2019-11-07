@@ -1,20 +1,30 @@
 {
-  "name": "genesis.js",
+  "name": "genesis-js",
   "version": "0.0.1",
   "description": "JS client for the GENESIS SOAP API",
-  "main": "index.js",
   "repository": "github.com/crijke/genesis-js",
   "author": "Christian Rijke",
   "license": "MIT",
   "private": true,
   "scripts": {
-    "lint": "npx healthier *.ts --fix",
-    "build": "tsc src/index.ts --outDir build",
-    "clean": "rm -rf build"
+    "_cleanBuild": "rm -rf build",
+    "_cleanGeneratedSrc": "rm -rf srcGen",
+    "_buildGenerator": "npx tsc src/*.ts --outDir build",
+    "_generateClient": "node build/index.js",
+    "lint": "npx healthier src/*.ts --fix",
+    "dev": "npx tsc-watch src/*.ts --outDir build --onSuccess \"node build/index.js\"",
+    "clean": "rm -rf build && rm -rf srcGen && rm -rf dist",
+    "generate": "yarn clean && yarn _buildGenerator &&  mkdir -p ./srcGen && yarn _generateClient && cp ./templates/common.ts ./srcGen && yarn _cleanBuild",
+    "build": "yarn generate && npx tsc -d srcGen/*.ts --outDir dist && yarn _cleanGeneratedSrc"
   },
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "devDependencies": {
+    "@typescript-eslint/parser": "^2.6.1",
     "healthier": "^3.2.0",
-    "prettier": "^1.18.2"
+    "prettier": "^1.18.2",
+    "tsc-watch": "^4.0.0",
+    "typescript": "^3.7.2"
   },
   "prettier": {
     "tabWidth": 2,
@@ -24,11 +34,13 @@
     "printWidth": 120
   },
   "healthier": {
-    "parser": "typescript-eslint-parser",
-    "plugins": ["typescript"]
+    "parser": "@typescript-eslint/parser"
   },
   "dependencies": {
-    "eslint-plugin-typescript": "^0.14.0",
-    "typescript-eslint-parser": "^22.0.0"
+    "@types/bluebird": "^3.5.28",
+    "@types/mustache": "^0.8.32",
+    "mustache": "^3.1.0",
+    "soap": "^0.30.0",
+    "winston": "^3.2.1"
   }
 }
