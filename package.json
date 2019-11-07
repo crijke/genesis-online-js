@@ -1,8 +1,8 @@
 {
-  "name": "genesis-js",
+  "name": "genesis-online-js",
   "version": "0.0.1",
   "description": "JS client for the GENESIS SOAP API",
-  "repository": "github.com/crijke/genesis-js",
+  "repository": "github.com/crijke/genesis-soap-client",
   "author": "Christian Rijke",
   "license": "MIT",
   "scripts": {
