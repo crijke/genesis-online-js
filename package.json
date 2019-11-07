@@ -1,0 +1,34 @@
+{
+  "name": "genesis.js",
+  "version": "0.0.1",
+  "description": "JS client for the GENESIS SOAP API",
+  "main": "index.js",
+  "repository": "github.com/crijke/genesis-js",
+  "author": "Christian Rijke",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "lint": "npx healthier *.ts --fix",
+    "build": "tsc src/index.ts --outDir build",
+    "clean": "rm -rf build"
+  },
+  "devDependencies": {
+    "healthier": "^3.2.0",
+    "prettier": "^1.18.2"
+  },
+  "prettier": {
+    "tabWidth": 2,
+    "semi": false,
+    "singleQuote": true,
+    "jsxSingleQuote": false,
+    "printWidth": 120
+  },
+  "healthier": {
+    "parser": "typescript-eslint-parser",
+    "plugins": ["typescript"]
+  },
+  "dependencies": {
+    "eslint-plugin-typescript": "^0.14.0",
+    "typescript-eslint-parser": "^22.0.0"
+  }
+}
