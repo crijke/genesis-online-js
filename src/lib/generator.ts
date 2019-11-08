@@ -2,6 +2,7 @@ import { createClient } from 'soap'
 import * as Mustache from 'mustache'
 import * as path from 'path'
 import logger from './logger'
+import { camelize, pascalize } from 'humps'
 
 import { readFileAsync } from './fsAsync'
 
@@ -12,21 +13,26 @@ interface Input {
 
 interface Method {
   name: string
+  camelizedName: string
+  pascalizedName: string
   input: Input[]
 }
 
 interface Service {
   name: string
+  camelizedName: string
+  pascalizedName: string
   methods: Method[]
 }
 
 interface View {
   url: string
+  rootName: string
   services: Service[]
 }
 
 interface CodeGenerationResult {
-  rootName: string
+  view: View
   generatedCode: string
 }
 
@@ -61,6 +67,7 @@ export const generateClient = async (url: string): Promise<CodeGenerationResult>
       Mustache.parse(template)
 
       const view: View = {
+        rootName: '',
         services: [],
         url
       }
@@ -68,6 +75,7 @@ export const generateClient = async (url: string): Promise<CodeGenerationResult>
       const schema = await client.describe()
       const root = Object.keys(schema)[0]
       logger.info(`found root ${root}`)
+      view.rootName = root
 
       const services = schema[root]
       const serviceNames = Object.keys(services)
@@ -80,16 +88,23 @@ export const generateClient = async (url: string): Promise<CodeGenerationResult>
         logger.info(`found methods ${methodNames}`)
         const methods = methodNames.map(m => {
           const method = service[m]
-          return { name: m, input: mapInputToView(method.input) }
+          return {
+            name: m,
+            camelizedName: camelize(m),
+            pascalizedName: pascalize(m),
+            input: mapInputToView(method.input)
+          }
         })
         view.services.push({
           name: s,
+          camelizedName: camelize(s),
+          pascalizedName: pascalize(s),
           methods
         })
       })
 
       resolve({
-        rootName: root,
+        view,
         generatedCode: Mustache.render(template, view)
       })
     })

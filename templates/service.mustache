@@ -1,10 +1,10 @@
 import { call, SoapInput } from './common'
 
-const url = '{{url}}'
+const url = '{{&url}}'
 
 {{#services}}
 {{#methods}}
-export interface {{name}}Input extends SoapInput {
+interface {{pascalizedName}}Input extends SoapInput {
   {{#input}}
   {{name}}: {{type}}
   {{/input}}
@@ -13,17 +13,17 @@ export interface {{name}}Input extends SoapInput {
 {{/services}}
 
 {{#services}}
-export interface I{{name}} {
+interface {{pascalizedName}} {
   {{#methods}}
-  {{name}}: (input: {{name}}Input) => Promise<any>
+  {{camelizedName}}: (input: {{pascalizedName}}Input) => Promise<any>
   {{/methods}}
 }
 {{/services}}
 
 {{#services}}
-export const {{name}}: I{{name}} = {
+export const {{camelizedName}}: {{pascalizedName}} = {
   {{#methods}}
-  {{name}}: input => call(url, '{{name}}', input),
+  {{camelizedName}}: input => call(url, '{{name}}', input),
   {{/methods}}
 }
 {{/services}}
