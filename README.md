@@ -12,12 +12,12 @@ and return promises.
 
 Example with async/await:
 ```js
-import { rechercheService2010 } from  './rechercheService2010Service'
+import { rechercheService2010 } from 'genesis-online-js'
 
 const callService = async () => {
   const response = await rechercheService2010.merkmalsKatalog({
-    kennung: '',
-    passwort: '',
+    kennung: '<userid>',
+    passwort: '<password>',
     kriterium: 'Code',
     filter: '*',
     bereich: 'Alle',
@@ -31,17 +31,20 @@ const callService = async () => {
 callService()
 ```
 
-## Developer Guide
+Services and input arguments have type definitions, so you can use auto-completion in your editor. 
+The response is untyped currently.
 
-The service wrappers are written in TypeScript and automatically generated from the WSDL descriptions
+### Developer Guide
+
+Service wrappers are written in TypeScript and automatically generated from the WSDL descriptions
 of the SOAP Services. 
 
 Use ```yarn generate``` to generate the services in directory ```srcGen```
 
 Use ```yarn build``` to generate the services and compile to JavaScript along with type
-definitions in directory. Output will be in directory ```dist```
+definitions. Output will be in directory ```dist```
 
-Use ```yarn clean``` to deleted generated services and build files.
+Use ```yarn clean``` to delete generated services and build files.
 
 
 

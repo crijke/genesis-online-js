@@ -1,8 +1,8 @@
 {
   "name": "genesis-online-js",
   "version": "0.0.3",
-  "description": "JS client for the GENESIS SOAP API",
-  "repository": "github.com/crijke/genesis-soap-client",
+  "description": "JS client for the Genesis Online SOAP API of regionalstatistik.de",
+  "repository": "github.com/crijke/genesis-online-js",
   "author": "Christian Rijke",
   "license": "MIT",
   "scripts": {
