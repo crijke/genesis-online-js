@@ -1,6 +1,6 @@
 {
   "name": "genesis-online-js",
-  "version": "0.0.1-test",
+  "version": "0.0.2",
   "description": "JS client for the GENESIS SOAP API",
   "repository": "github.com/crijke/genesis-soap-client",
   "author": "Christian Rijke",
@@ -19,14 +19,14 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "devDependencies": {
+    "@types/humps": "^1.1.2",
     "@typescript-eslint/parser": "^2.6.1",
     "healthier": "^3.2.0",
+    "humps": "^2.0.1",
+    "mustache": "^3.1.0",
     "prettier": "^1.18.2",
     "tsc-watch": "^4.0.0",
     "typescript": "^3.7.2",
-    "@types/humps": "^1.1.2",
-    "humps": "^2.0.1",
-    "mustache": "^3.1.0",
     "winston": "^3.2.1"
   },
   "prettier": {
