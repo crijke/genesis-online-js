@@ -32,10 +32,6 @@ interface ClientDescription {
   services: Service[]
 }
 
-const getClientFilename = (name: string): string => `${name}.ts`
-
-const getIndexFilename = () => 'index.ts'
-
 const getWritePath = (filename: string): string => {
   return path.join(__dirname, '..', '..', 'srcGen', filename)
 }
@@ -48,7 +44,6 @@ const mapXsdType = (type: string) => {
       return 'boolean'
     case 'xsd:byte':
       return 'number'
-
     default:
       throw new Error(`unknown type ${type}`)
   }
@@ -63,13 +58,13 @@ const mapInputToView = (input: { [key: string]: string }) =>
 const writeClientFile = async (clientName: string, clientDescription: ClientDescription) => {
   const template = await getServiceTemplate()
   const generatedCode = Mustache.render(template, clientDescription)
-  await writeFileAsync(getWritePath(getClientFilename(clientName)), generatedCode)
+  await writeFileAsync(getWritePath( `${clientName}.ts`), generatedCode)
 }
 
 const appendToIndexFile = async (clientName: string) => {
   const template = await getIndexTemplate()
   const generatedCode = Mustache.render(template, { clientName })
-  await appendFileAsync(getWritePath(getIndexFilename()), generatedCode)
+  await appendFileAsync(getWritePath('index.ts'), generatedCode)
 }
 
 const describe = async (url: string, client: Client): Promise<ClientDescription> => {

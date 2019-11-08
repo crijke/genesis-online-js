@@ -1,6 +1,6 @@
-import { createLogger, transports, format } from 'winston'
+import { createLogger, transports, format, Logger } from 'winston'
 
-export default createLogger({
+const logger: Logger = createLogger({
   level: 'info',
   format: format.json(),
   transports: [
@@ -10,3 +10,5 @@ export default createLogger({
     })
   ]
 })
+
+export default logger
