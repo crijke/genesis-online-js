@@ -17,6 +17,9 @@
     "build": "yarn generate && npx tsc -d srcGen/*.ts --outDir dist && yarn _cleanGeneratedSrc"
   },
   "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
   "types": "dist/index.d.ts",
   "devDependencies": {
     "@types/humps": "^1.1.2",
