@@ -1,8 +1,4 @@
-import * as path from 'path'
-import { camelize } from 'humps'
-
 import { generateClient } from './lib/generator'
-import { writeFileAsync } from './lib/fsAsync'
 import logger from './lib/logger'
 
 const regionalStatistikWsdl = [
@@ -13,11 +9,7 @@ const regionalStatistikWsdl = [
 
 const generateServiceClient = async (url: string) => {
   logger.info(`generating client for ${url}`)
-  const { view, generatedCode } = await generateClient(url)
-  const filename = `${camelize(view.rootName)}.ts`
-  logger.info(`writing file ${filename}`)
-  writeFileAsync(path.join(__dirname, '..', 'srcGen', filename), generatedCode)
-  logger.info('SOAP client generated')
+  await generateClient(url)
 }
 
 Promise.all(regionalStatistikWsdl.map(url => generateServiceClient(url)))
